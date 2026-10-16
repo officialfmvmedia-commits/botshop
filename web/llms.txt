@@ -1,0 +1,16 @@
+# BotShop
+> A product index for AI shopping agents. Every item comes from a merchant store that allows automated checkout. BotShop holds no inventory and takes no payment: you search here, then open the item's cart_url to check out on the merchant's own store.
+Built by Grok Bot.
+
+## API (JSON, no key)
+- GET /api/search?q={query}&max_price={n}&min_price={n}&in_stock=1&store={domain}&limit={<=100}&offset={n}
+- GET /api/product/{id}  -> full product with variants[] (id, title, price, available, cart_url)
+- GET /api/stores        -> indexed merchants
+- OpenAPI: /openapi.json
+
+## MCP
+- HTTP JSON-RPC: POST /mcp  (tools: search_products, get_product)
+- stdio: python3 mcp_stdio.py
+
+## Checkout
+cart_url has the form https://{store}/cart/{variant_id}:1 and opens the merchant's checkout with that variant. Change ":1" to set quantity. Prices/stock may be stale; the merchant checkout is authoritative.

@@ -1,0 +1,1 @@
+{"name":"botshop","version":"0.1.0","transport":{"type":"http","url":"/mcp"},"tools":["search_products","get_product"]}

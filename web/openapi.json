@@ -1,0 +1,212 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "BotShop API",
+  "version": "0.1.0",
+  "description": "Product index for AI shopping agents. Checkout happens on the merchant's store via cart_url."
+ },
+ "paths": {
+  "/api/search": {
+   "get": {
+    "operationId": "searchProducts",
+    "summary": "Search products",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Full-text query"
+     },
+     {
+      "name": "max_price",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number"
+      },
+      "description": "Max price"
+     },
+     {
+      "name": "min_price",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "number"
+      },
+      "description": "Min price"
+     },
+     {
+      "name": "in_stock",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "1 = only available"
+     },
+     {
+      "name": "store",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      },
+      "description": "Store domain"
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "<=100"
+     },
+     {
+      "name": "offset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer"
+      },
+      "description": "Pagination"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "ok",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "total": {
+           "type": "integer"
+          },
+          "results": {
+           "type": "array",
+           "items": {
+            "$ref": "#/components/schemas/Product"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/product/{id}": {
+   "get": {
+    "operationId": "getProduct",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "ok",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Product"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "not found"
+     }
+    }
+   }
+  },
+  "/api/stores": {
+   "get": {
+    "operationId": "listStores",
+    "responses": {
+     "200": {
+      "description": "ok"
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Product": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "vendor": {
+      "type": "string"
+     },
+     "store": {
+      "type": "string"
+     },
+     "type": {
+      "type": "string"
+     },
+     "price": {
+      "type": "number"
+     },
+     "currency": {
+      "type": "string"
+     },
+     "in_stock": {
+      "type": "boolean"
+     },
+     "image": {
+      "type": "string"
+     },
+     "url": {
+      "type": "string"
+     },
+     "cart_url": {
+      "type": "string"
+     },
+     "checkout": {
+      "type": "string"
+     },
+     "variants": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "type": "integer"
+        },
+        "title": {
+         "type": "string"
+        },
+        "price": {
+         "type": "number"
+        },
+        "available": {
+         "type": "boolean"
+        },
+        "cart_url": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
