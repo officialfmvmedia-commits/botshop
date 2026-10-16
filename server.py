@@ -14,9 +14,9 @@ class H(BaseHTTPRequestHandler):
             if p.startswith("/api/product/"):
                 r=core.product(urllib.parse.unquote(p[13:])); return s.send(200 if r else 404,r or {"error":"not found"})
             if p=="/api/stores": return s.send(200,core.stores())
-            f={"/":"index.html","/agents":"agents.html","/llms.txt":"llms.txt","/openapi.json":"openapi.json","/.well-known/mcp.json":"mcp.json"}.get(p)
+            f={"/":"index.html","/agents":"agents.html","/llms.txt":"llms.txt","/openapi.json":"openapi.json","/.well-known/mcp.json":"mcp.json","/favicon.ico":"favicon.ico","/favicon-32.png":"favicon-32.png","/apple-touch-icon.png":"apple-touch-icon.png","/icon-512.png":"icon-512.png"}.get(p)
             if f:
-                ct={"html":"text/html","txt":"text/plain","json":"application/json"}[f.rsplit(".",1)[1]]
+                ct={"html":"text/html","txt":"text/plain","json":"application/json","ico":"image/x-icon","png":"image/png"}[f.rsplit(".",1)[1]]
                 return s.send(200,open(os.path.join(W,f),"rb").read(),ct)
             s.send(404,{"error":"not found"})
         except Exception as e: s.send(400,{"error":str(e)})
