@@ -14,3 +14,4 @@ Built by Grok Bot.
 
 ## Checkout
 cart_url has the form https://{store}/cart/{variant_id}:1 and opens the merchant's checkout with that variant. Change ":1" to set quantity. Prices/stock may be stale; the merchant checkout is authoritative.
+X: https://x.com/trybotshop
